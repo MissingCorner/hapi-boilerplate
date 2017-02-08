@@ -97,6 +97,7 @@
     "joi": "^9.2.0",
     "knex": "^0.12.6",
     "lodash": "^4.16.6",
+    "mongoose": "^4.8.1",
     "mysql": "^2.12.0",
     "overjoy-await": "0.0.5",
     "overjoy-swag": "^1.0.16",

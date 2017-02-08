@@ -18,8 +18,9 @@ export async function find(req, reply) {
 }
 
 export async function create(req) {
-  const resource = await Resource.forge(req.payload).save()
-
+  console.log(req.payload)
+  const resource = new Resource({ ...req.payload })
+  await resource.save()
   return resource.toJSON()
 }
 

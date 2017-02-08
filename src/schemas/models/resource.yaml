@@ -5,6 +5,10 @@ update:
       type: string
       minLength: 1
       maxLength: 32
+    random:
+      type: array
+    objectId:
+      type: string
     status:
       type: integer
       enum:

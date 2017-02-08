@@ -1,7 +1,7 @@
-import Model from '../components/orm'
+// import Model from '../components/orm'
 import { get as ContentSchema } from '../schemas/models/content.yaml'
 
-export default class Content extends Model {
+export default class Content {
 
   static schema = ContentSchema;
 

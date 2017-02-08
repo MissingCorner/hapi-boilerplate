@@ -5,7 +5,7 @@ import vision from 'vision'
 import hapiSwaggeredUi from 'hapi-swaggered-ui'
 import * as overjoyAwait from 'overjoy-await'
 import * as overjoySwag from 'overjoy-swag'
-
+import './db/mongo'
 import { config } from './components/config'
 import routes from './routes'
 import api from './schemas/api.swagger.yaml'
