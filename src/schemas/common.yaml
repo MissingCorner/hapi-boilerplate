@@ -26,6 +26,6 @@ parameters:
     description: direction of order (asc or desc)
     type: string
     enum:
-      - asc
-      - desc
-    default: asc
+      - ascending
+      - descending
+    default: ascending

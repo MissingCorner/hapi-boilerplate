@@ -5,10 +5,6 @@ update:
       type: string
       minLength: 1
       maxLength: 32
-    random:
-      type: array
-    objectId:
-      type: string
     status:
       type: integer
       enum:
@@ -30,9 +26,6 @@ get:
   - $ref: 'common.yaml#/BaseModel'
   - $ref: 'resource.yaml#/create'
   - properties:
-      id:
-        type: string
-        format: uuid
       md5:
         type: string
         minLength: 32

@@ -5,15 +5,11 @@ import Resource from '../models/Resource'
 export async function find(req, reply) {
   const total = await Resource.count()
 
-  const { limit, offset, orderBy, orderDirection } = req.query
+  const { limit, offset } = req.query
 
-  const resources = await Resource.collection().query({
-    limit,
-    offset,
-    orderBy: [orderBy, orderDirection],
-  }).fetch()
+  const resources = await Resource.find().limit(limit).skip(offset)
 
-  return reply(resources.toJSON())
+  return reply(resources)
     .header('X-Meta-Total', total)
 }
 
@@ -27,49 +23,40 @@ export async function create(req) {
 export async function get(req) {
   const { id } = req.params
 
-  const resource = await Resource.forge({ id }).fetch()
+  const resource = await Resource.findById(id)
 
   if (!resource) {
     throw Boom.notFound('Resource not found')
   }
 
-  return resource.toJSON()
+  return resource
 }
 
 export async function update(req) {
   const { id } = req.params
+  console.log(req.params)
 
-  const resource = await Resource.forge({ id }).fetch()
+  const resource = await Resource.findByIdAndUpdate(id,
+    { $set: req.payload },
+    { new: true }
+  )
 
   if (!resource) {
     throw Boom.notFound('Resource not found')
   }
 
-  resource.set(req.payload)
-
-  try {
-    return (await resource.save()).toJSON()
-  } catch (e) {
-    if (e instanceof Resource.NoRowsUpdatedError) {
-      throw Boom.notFound('Resource not found')
-    } else {
-      throw e
-    }
-  }
+  return resource
 }
 
 export async function destroy(req, reply) {
   const { id } = req.params
+  const resource = await Resource.findById(id)
 
-  try {
-    await Resource.forge({ id }).destroy({ require: true })
-
-    return reply().code(204)
-  } catch (error) {
-    if (error instanceof Resource.NoRowsDeletedError) {
-      throw Boom.notFound('Resource not found')
-    } else {
-      throw error
-    }
+  if (!resource) {
+    throw Boom.notFound('Resource not found')
   }
+
+  await resource.remove()
+
+  return reply().code(204)
 }
